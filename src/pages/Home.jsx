@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Spline from '@splinetool/react-spline'
 
 export default function Home() {
   return (
@@ -31,7 +32,12 @@ export default function Home() {
               </div>
             </div>
             <div className="relative">
-              <div className="h-72 sm:h-96 rounded-xl bg-gradient-to-br from-nx.purple/30 to-nx.blue/30 dark:from-nx.purple/20 dark:to-nx.blue/20 backdrop-blur border border-white/20 dark:border-white/10 animate-float" />
+              <div className="h-72 sm:h-96 rounded-xl bg-gradient-to-br from-nx.purple/30 to-nx.blue/30 dark:from-nx.purple/20 dark:to-nx.blue/20 backdrop-blur border border-white/20 dark:border-white/10 animate-float overflow-hidden">
+                {/* Spline scene placeholder: lightweight and lazy-loaded */}
+                <div className="h-full w-full">
+                  <Spline scene="https://prod.spline.design/6oTBsv9QdPrpD6G1/scene.splinecode" />
+                </div>
+              </div>
               <div className="absolute -top-6 -right-6 h-24 w-24 rounded-full bg-nx.orange/30 blur-2xl" />
               <div className="absolute -bottom-8 -left-6 h-24 w-24 rounded-full bg-nx.blue/30 blur-2xl" />
             </div>
@@ -49,10 +55,17 @@ export default function Home() {
             { title: 'Custom Models', desc: 'Fine-tuning, evaluation, and safety.' },
             { title: 'Automation', desc: 'Workflows, agents, and integrations.' },
           ].map((s) => (
-            <div key={s.title} className="p-6 rounded-xl border border-gray-200 dark:border-white/10 bg-white/60 dark:bg-white/5 hover:shadow-lg transition-shadow">
+            <motion.div
+              key={s.title}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5 }}
+              className="p-6 rounded-xl border border-gray-200 dark:border-white/10 bg-white/60 dark:bg-white/5 hover:shadow-lg transition-shadow"
+            >
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{s.title}</h3>
               <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{s.desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
